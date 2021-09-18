@@ -3,15 +3,15 @@ import * as THREE from 'three';
 import { Planet } from './Planet';
 
 export class GasPlanet extends Planet {
-    constructor() {
-        super();
+    constructor(radius: number) {
+        super(radius);
     }
 
     generateMesh(seed: number): void {
         // TODO Generate gas planet mesh
     }
 
-    draw(): void {
+    update(): void {
         // TODO planet draw functions
     }
 }
