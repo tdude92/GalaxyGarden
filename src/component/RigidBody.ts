@@ -1,4 +1,4 @@
-import {Vec3f} from '../util';
+import { Vec3f } from '../util';
 
 export abstract class RigidBody {
     /** 
@@ -17,7 +17,7 @@ export abstract class RigidBody {
         this.b = b;
     }
 
-    orbit_step(): void {
+    orbit_step(): void { // TODO write orbit_step function
         // Updates position of RigidBody by one time step
     }
 }

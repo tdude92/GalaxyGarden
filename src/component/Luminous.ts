@@ -1,7 +1,10 @@
-export abstract class Luminous {
+import { Vec3f } from "../util";
+
+export interface Luminous {
     /**
      * Base class for any object that will emit light.
      */
 
-    constructor() {}
+    luminosity: number;
+    color: Vec3f;
 }
