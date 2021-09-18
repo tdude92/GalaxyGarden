@@ -20,6 +20,7 @@ const animate = function () {
 
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
+    cube.position.z += 0.02;
 
     renderer.render( scene, camera );
 };
