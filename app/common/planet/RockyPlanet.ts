@@ -7,8 +7,14 @@ export class RockyPlanet extends Planet {
         super(radius);
     }
 
-    generateMesh(seed: number): void {
+    generateElevations(seed: number): Float64Array {
         // TODO generate rocky planet mesh
+        return new Float64Array();
+    }
+
+    generateTexture(seed: number): THREE.Texture {
+        // TODO
+        return new THREE.Texture();
     }
 
     update(): void {

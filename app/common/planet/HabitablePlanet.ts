@@ -26,7 +26,7 @@ export class HabitablePlanet extends Planet {
         return elevations;
     }
     
-    generateTextures(seed: number): THREE.Texture {
+    generateTexture(seed: number): THREE.Texture {
         // Generate texture
         let texData = new Uint8Array(this.tex_w*this.tex_h*3);
 

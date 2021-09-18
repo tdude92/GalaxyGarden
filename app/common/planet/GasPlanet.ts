@@ -7,8 +7,14 @@ export class GasPlanet extends Planet {
         super(radius);
     }
 
-    generateMesh(seed: number): void {
+    generateElevations(seed: number): Float64Array {
+        // TODO
+        return new Float64Array;
+    }
+
+    generateTexture(seed: number): THREE.Texture {
         // TODO Generate gas planet mesh
+        return new THREE.Texture();
     }
 
     update(): void {

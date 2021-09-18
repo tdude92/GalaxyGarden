@@ -1,4 +1,4 @@
-import { Vec3f } from '../util';
+import { Vec3f } from '../utils';
 
 export abstract class RigidBody {
     /** 
