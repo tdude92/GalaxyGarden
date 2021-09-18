@@ -1,26 +1,31 @@
 {
-  "name": "galaxygarden",
+  "name": "my-electron-app",
   "version": "1.0.0",
-  "description": "yeet",
-  "main": "app/index.js",
+  "description": "Hello World!",
+  "main": "main.js",
+  "author": "Jane Doe",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron-webpack dev",
+    "build": "electron-webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tdude92/GalaxyGarden.git"
   },
-  "author": "",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tdude92/GalaxyGarden/issues"
   },
   "homepage": "https://github.com/tdude92/GalaxyGarden#readme",
   "devDependencies": {
-    "typescript": "^4.4.3"
+    "electron": "^11.1.1",
+    "electron-webpack": "^2.8.2",
+    "webpack": "^4.44.2"
   },
   "dependencies": {
-    "@types/node": "^16.9.2",
-    "@types/three": "^0.131.1"
+    "electron-webpack-ts": "^4.0.1",
+    "source-map-support": "^0.5.19",
+    "three": "^0.132.2",
+    "typescript": "^4.4.3"
   }
 }
