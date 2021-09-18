@@ -1,0 +1,22 @@
+{
+  "name": "galaxygarden",
+  "version": "1.0.0",
+  "description": "yeet",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdude92/GalaxyGarden.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tdude92/GalaxyGarden/issues"
+  },
+  "homepage": "https://github.com/tdude92/GalaxyGarden#readme",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
