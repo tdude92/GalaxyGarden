@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { Orbit } from '../component/Orbit'
 
 export abstract class RigidBody {
     /** 
@@ -6,6 +7,8 @@ export abstract class RigidBody {
      */
 
     position: THREE.Vector3;
+    solar_x_skew: THREE.Matrix4;
+    solar_y_skew: THREE.Matrix4;
 
     // Rotation about axis
     axialTilt: number;
@@ -13,13 +16,19 @@ export abstract class RigidBody {
     phi: number; // angle of rotation
 
     // Orbit
-    theta: number;
-    a: number;
-    b: number;
+    orbit: Orbit;
 
     constructor() {}
 
-    orbit_step(): void { // TODO write orbit_step function
-        // Updates position of RigidBody by one time step
+    _init_physics(orbit_a:number, orbit_e:number, x_skew:number, y_skew:number) : void {
+        this.solar_x_skew = new THREE.Matrix4().makeRotationX(x_skew);
+        this.solar_y_skew = new THREE.Matrix4().makeRotationY(y_skew);
+        this.orbit = new Orbit(orbit_a, orbit_e);
+    }
+
+    step(new_time:number): void {
+        this.position = this.orbit.get_2d_coords(new_time)
+        .applyMatrix4(this.solar_x_skew)
+        .applyMatrix4(this.solar_y_skew);
     }
 } 
