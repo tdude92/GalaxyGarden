@@ -28,4 +28,6 @@ export class Star extends RigidBody implements Rendered, Luminous {
         });
         this.mesh = new THREE.Mesh(geometry, material);
     }
+
+    update() {} // TODO
 }
