@@ -1,17 +1,11 @@
+import {Mesh} from 'three';
 import {Vec3f} from '../util';
 
-export abstract class Rendered {
-    /** 
-     * Base class for objects that will be rendered onto the screen.
-     * Contains an abstract draw function.
-     */
-
-    position: Vec3f;
-    direction: Vec3f;
-    // TODO add mesh and texture fields
-
-    constructor() {}
+export interface Rendered {
+    // Any object that will be rendered onto scene
+    
+    mesh: Mesh;
 
     // Draws object onto screen
-    abstract draw(): void;
+    draw(position: Vec3f, direction: Vec3f): void;
 }

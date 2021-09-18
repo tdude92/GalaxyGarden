@@ -18,5 +18,8 @@
   "homepage": "https://github.com/tdude92/GalaxyGarden#readme",
   "devDependencies": {
     "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@types/three": "^0.131.1"
   }
 }
