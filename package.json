@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@types/node": "^16.9.2",
-    "@types/three": "^0.131.1"
+    "@types/three": "^0.131.1",
+    "open-simplex-noise": "^2.5.0"
   }
 }

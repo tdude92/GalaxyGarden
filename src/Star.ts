@@ -11,16 +11,21 @@ export class Star extends RigidBody implements Rendered, Luminous {
     mesh: THREE.Mesh;
     radius: number;
     luminosity: number;
-    color: Vec3f;
+    color: THREE.Color;
 
     constructor(radius: number, luminosity: number, color: Vec3f) {
         super();
         this.radius = radius;
         this.luminosity = luminosity;
-        this.color = color;
+
+        color = color.scale(1/255);
+        this.color = new THREE.Color(color.x, color.y, color.z);
 
         // TODO generate mesh
+        const geometry = new THREE.SphereGeometry(this.radius);
+        const material = new THREE.MeshStandardMaterial({
+            'color': this.color
+        });
+        this.mesh = new THREE.Mesh(geometry, material);
     }
-
-    draw(): void {} // TODO Star draw function
 }

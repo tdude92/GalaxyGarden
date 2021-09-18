@@ -3,7 +3,7 @@ import { RigidBody } from './component/RigidBody';
 import { Luminous } from './component/Luminous';
 import { Vec3f, genHexstring } from './util';
 
-export class SolarSystem implements Rendered {
+export class SolarSystem {
     /**
      * Stores data on a solar system and handles all of its objects.
      */
@@ -34,5 +34,5 @@ export class SolarSystem implements Rendered {
     static load(path: string): SolarSystem {return new SolarSystem(genHexstring(4), genHexstring(4), -1)} // TODO load from file
     save(path: string): void {} // TODO save to file
 
-    draw(): void {} // TODO draw function
+    update(): void {} // TODO draw function
 }

@@ -10,4 +10,8 @@ export class GasPlanet extends Planet {
     generateMesh(seed: number): void {
         // TODO Generate gas planet mesh
     }
+
+    draw(): void {
+        // TODO planet draw functions
+    }
 }

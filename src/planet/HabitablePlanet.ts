@@ -10,4 +10,8 @@ export class HabitablePlanet extends Planet {
     generateMesh(seed: number): void {
         // TODO generate habitable planet mesh
     }
+
+    draw(): void {
+        // TODO planet draw functions
+    }
 }

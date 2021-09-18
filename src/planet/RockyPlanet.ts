@@ -10,4 +10,8 @@ export class RockyPlanet extends Planet {
     generateMesh(seed: number): void {
         // TODO generate rocky planet mesh
     }
+
+    draw(): void {
+        // TODO planet draw functions
+    }
 }

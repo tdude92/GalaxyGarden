@@ -17,8 +17,4 @@ export abstract class Planet extends RigidBody implements Rendered {
     }
 
     abstract generateMesh(seed: number): void;
-
-    draw(): void {
-        // TODO planet draw functions
-    }
 }

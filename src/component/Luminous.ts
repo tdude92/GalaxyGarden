@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { Vec3f } from "../util";
 
 export interface Luminous {
@@ -6,5 +7,5 @@ export interface Luminous {
      */
 
     luminosity: number; // Solar Luminosities
-    color: Vec3f;
+    color: THREE.Color;
 }
