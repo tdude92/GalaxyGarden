@@ -13,9 +13,8 @@ export class Star extends RigidBody implements Rendered, Luminous {
     luminosity: number;
     color: Vec3f;
 
-    constructor(radius: number, luminosity: number, color: Vec3f, position: Vec3f = new Vec3f(),
-                theta: number = 0, a: number = 0, b: number = 0) {
-        super(position, theta, a, b);
+    constructor(radius: number, luminosity: number, color: Vec3f) {
+        super();
         this.radius = radius;
         this.luminosity = luminosity;
         this.color = color;
@@ -23,5 +22,5 @@ export class Star extends RigidBody implements Rendered, Luminous {
         // TODO generate mesh
     }
 
-    draw(position: Vec3f, direction: Vec3f): void {} // TODO
+    draw(): void {} // TODO Star draw function
 }

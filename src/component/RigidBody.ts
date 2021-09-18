@@ -6,16 +6,18 @@ export abstract class RigidBody {
      */
 
     position: Vec3f;
+
+    // Rotation about axis
+    axialTilt: number;
+    angularSpeed: number;
+    phi: number; // angle of rotation
+
+    // Orbit
     theta: number;
     a: number;
     b: number;
 
-    constructor(position: Vec3f, theta: number, a: number, b: number) {
-        this.position = position;
-        this.theta = theta;
-        this.a = a;
-        this.b = b;
-    }
+    constructor() {}
 
     orbit_step(): void { // TODO write orbit_step function
         // Updates position of RigidBody by one time step

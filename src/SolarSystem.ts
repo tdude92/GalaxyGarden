@@ -34,5 +34,5 @@ export class SolarSystem implements Rendered {
     static load(path: string): SolarSystem {return new SolarSystem(genHexstring(4), genHexstring(4), -1)} // TODO load from file
     save(path: string): void {} // TODO save to file
 
-    draw(position: Vec3f, direction: Vec3f): void {} // TODO draw function
+    draw(): void {} // TODO draw function
 }
