@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { Vec3f } from "../util";
 
 export interface Luminous {
     /**

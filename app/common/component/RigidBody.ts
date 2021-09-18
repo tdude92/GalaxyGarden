@@ -1,11 +1,11 @@
-import { Vec3f } from '../utils';
+import * as THREE from 'three';
 
 export abstract class RigidBody {
     /** 
      * Base class for any object that will be in motion
      */
 
-    position: Vec3f;
+    position: THREE.Vector3;
 
     // Rotation about axis
     axialTilt: number;

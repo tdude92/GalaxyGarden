@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { Rendered } from '../component/Rendered';
 import { RigidBody } from '../component/RigidBody';
-import { Vec3f } from '../utils';
 
 export abstract class Planet extends RigidBody implements Rendered {
     /** 

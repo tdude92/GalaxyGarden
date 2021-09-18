@@ -1,7 +1,8 @@
+import * as THREE from 'three';
 import { Rendered } from './component/Rendered';
 import { RigidBody } from './component/RigidBody';
 import { Luminous } from './component/Luminous';
-import { Vec3f, genHexstring } from './util';
+import { genHexstring } from './utils';
 
 export class SolarSystem {
     /**
@@ -15,12 +16,12 @@ export class SolarSystem {
     drawn_objects: Rendered[];
     luminous_objects: Luminous[];
 
-    skybox_up:    Vec3f[][]; // Skybox stored as 2d arrays of 3d vectors (ie. an RGB image)
-    skybox_down:  Vec3f[][];
-    skybox_left:  Vec3f[][];
-    skybox_right: Vec3f[][];
-    skybox_front: Vec3f[][];
-    skybox_back:  Vec3f[][];
+    skybox_up:    THREE.Vector3[][]; // Skybox stored as 2d arrays of 3d vectors (ie. an RGB image)
+    skybox_down:  THREE.Vector3[][];
+    skybox_left:  THREE.Vector3[][];
+    skybox_right: THREE.Vector3[][];
+    skybox_front: THREE.Vector3[][];
+    skybox_back:  THREE.Vector3[][];
 
     constructor(name: string, id: string, seed: number) {
         this.name = name;
