@@ -5,8 +5,8 @@ import { fractalNoise3D_Spherical } from '../noise';
 import { Planet } from './Planet';
 
 export class HabitablePlanet extends Planet {
-    constructor(radius: number) {
-        super(radius);
+    constructor(radius: number, seed: number) {
+        super(radius, seed);
     }
 
     generateElevations(seed: number): Float64Array {
@@ -26,9 +26,19 @@ export class HabitablePlanet extends Planet {
         return elevations;
     }
     
-    generateTexture(seed: number): THREE.Texture {
+    generateTexture(seed?: number): THREE.Texture {
         // Generate texture
         let texData = new Uint8Array(this.tex_w*this.tex_h*3);
+
+        for (let y = 0; y < this.tex_h; ++y) {
+            for (let x = 0; x < this.tex_w; ++x) {
+                let elevation = this.elevations[y*this.tex_w + x];
+
+                texData[y*this.tex_w + x + 0] = Math.floor(elevation*255); // TODO add colours
+                texData[y*this.tex_w + x + 1] = Math.floor(elevation*255);
+                texData[y*this.tex_w + x + 2] = Math.floor(elevation*255);
+            }
+        }
 
         return new THREE.DataTexture(texData, this.tex_w, this.tex_h, THREE.RGBFormat);
     }

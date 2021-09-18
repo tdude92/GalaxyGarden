@@ -18,14 +18,15 @@ export abstract class Planet extends RigidBody implements Rendered {
     tex: THREE.Texture;
     mesh: THREE.Mesh;
 
-    constructor(radius: number) {
+    constructor(radius: number, seed: number) {
         super();
         this.radius = radius;
         this.tex_w = radius*6; // Approximate pi = 3
         this.tex_h = this.tex_w/2;
+        this.mesh = this.generateMesh(seed);
     }
 
-    generateMesh(seed: number): void {
+    generateMesh(seed: number): THREE.Mesh {
         const geometry = new THREE.SphereGeometry(); // TODO params
         const material = new THREE.MeshStandardMaterial({
             map: this.tex
@@ -35,7 +36,7 @@ export abstract class Planet extends RigidBody implements Rendered {
         this.elevations = this.generateElevations(seed);
         this.tex = this.generateTexture(seed);
 
-        this.mesh = new THREE.Mesh(geometry, material);
+        return new THREE.Mesh(geometry, material);
     }
 
     abstract generateElevations(seed: number): Float64Array;
