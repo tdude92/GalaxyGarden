@@ -25,9 +25,10 @@ export class Palette {
                 this.colors.push({h: [200, 20], s: [15, 20], l: [10, 20]}); // Highlands
                 break;
             case PaletteType.Analogous:
-                this.colors.push({h: [130, 20], s: [20, 20], l: [25, 20]}); // Lowlands
-                this.colors.push({h: [165, 20], s: [20, 20], l: [20, 20]}); // Midlands
-                this.colors.push({h: [200, 20], s: [15, 20], l: [10, 20]}); // Highlands
+                let h = rng();
+                this.colors.push({h: [h*360, 20], s: [50, 20], l: [20, 20]}); // Lowlands
+                this.colors.push({h: [h*360 + 20, 10], s: [55, 20], l: [35, 20]}); // Midlands
+                this.colors.push({h: [h*360 + 25, 10], s: [50, 20], l: [20, 20]}); // Highlands
                 break;
             case PaletteType.Complementary:
                 break;
@@ -45,7 +46,16 @@ export class Palette {
                 (col.h[0] + col.h[1]*rng())/360,
                 (col.s[0] + col.s[1]*rng())/100,
                 (col.l[0] + col.l[1]*rng())/100
-            );;
+            );
         }
     }
 }
+
+function shiftHue(hue: number, dist: number = 15): number {
+    hue = hue % 360
+    if (240 - dist <= hue && hue <= 240 + dist)
+      return 240;
+    if (60 < hue && hue < 225)
+      return hue + dist;
+    return (hue - dist) % 360;
+  }

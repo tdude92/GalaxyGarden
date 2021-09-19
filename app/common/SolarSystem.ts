@@ -4,6 +4,7 @@ import { RigidBody } from './component/RigidBody';
 import { Luminous } from './component/Luminous';
 import { random_normal, mulberry32, random_e } from './noise';
 import { HabitablePlanet } from './planet/HabitablePlanet';
+import { RockyPlanet } from './planet/RockyPlanet';
 import { Planet } from './planet/Planet';
 import { Star } from './Star';
 
@@ -58,7 +59,7 @@ export class SolarSystem {
             }
 
             prev_apoapsis = orbit_a*(1+orbit_e);
-            let planet:Planet = new HabitablePlanet(planet_radius, seed*i, orbit_a, orbit_e, -Math.PI/3, 0);
+            let planet:Planet = new RockyPlanet(planet_radius, seed*i*100, orbit_a, orbit_e, -Math.PI/3, 0);
             this.planets.push(planet)
             planet.generateMoons(this.rand_fn, scene);
             scene.add( planet.mesh );
