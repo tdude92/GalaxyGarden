@@ -3,8 +3,8 @@ import * as THREE from 'three';
 import { Planet } from './Planet';
 
 export class RockyPlanet extends Planet {
-    constructor(radius: number) {
-        super(radius);
+    constructor(radius: number, seed: number, orbit_a: number, orbit_e: number, x_skew: number, y_skew: number) {
+        super(radius, seed, orbit_a, orbit_e, x_skew, y_skew);
     }
 
     generateElevations(seed: number): Float64Array {
@@ -16,6 +16,8 @@ export class RockyPlanet extends Planet {
         // TODO
         return new THREE.Texture();
     }
+
+    generatePalette(seed: number): void {} // TODO
 
     update(): void {
         // TODO planet draw functions
