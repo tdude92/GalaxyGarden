@@ -3,7 +3,7 @@ import { Rendered } from '../component/Rendered';
 import { RigidBody } from '../component/RigidBody';
 import { Palette } from '../palettes';
 import { Moon } from '../moon/Moon';
-import { random_moon_e, random_normal } from '../noise';
+import { mulberry32, random_moon_e } from '../noise';
 
 const TYPICAL_MOON_SIZE:number = 30;
 
@@ -19,6 +19,9 @@ export abstract class Planet extends RigidBody implements Rendered {
     mesh: THREE.Mesh;
     moons: Moon[];
 
+    rot_speed: number;
+    time_offset: number;
+
     // Initialized in subclasses
     elevations: Float64Array;
     normalMap: THREE.Texture; // TODO generate
@@ -32,6 +35,8 @@ export abstract class Planet extends RigidBody implements Rendered {
         this.tex_w = radius*6; // Approximate pi = 3
         this.tex_h = this.tex_w/2;
         this.mesh = this.generateMesh(seed);
+        this.rot_speed = mulberry32(seed)()*0.02 + 0.005;
+        this.time_offset = mulberry32(seed*100)()*100000000;
     }
 
     generateMoons(rand_fn:() => number, scene: THREE.Scene): void {
@@ -63,12 +68,14 @@ export abstract class Planet extends RigidBody implements Rendered {
     }
 
     override step(new_time:number): void {
+        new_time += this.time_offset;
         this.position = this.orbit.get_2d_coords(new_time)
         .applyMatrix4(this.solar_x_skew)
         .applyMatrix4(this.solar_y_skew);
 
 
         this.moons.forEach((moon) => moon.step(new_time*0.6));
+        this.mesh.rotation.y += this.rot_speed;
     }
 
     set_moon_mesh_positions(): void {

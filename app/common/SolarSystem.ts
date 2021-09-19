@@ -8,7 +8,7 @@ import { RockyPlanet } from './planet/RockyPlanet';
 import { Planet } from './planet/Planet';
 import { Star } from './Star';
 
-const MAX_PLANETS:number = 5;
+const MAX_PLANETS:number = 6;
 const SOLAR_SYSTEM_RADIUS:number = 8000;
 const ORBIT_RADIUS_DEVIATION:number = 60;
 const TYPICAL_PLANET_RADIUS:number = 100;
@@ -59,7 +59,12 @@ export class SolarSystem {
             }
 
             prev_apoapsis = orbit_a*(1+orbit_e);
-            let planet:Planet = new RockyPlanet(planet_radius, seed*i*100, orbit_a, orbit_e, -Math.PI/3, 0);
+            let planet:Planet;
+            if (this.rand_fn() > 0.75) {
+                planet = new HabitablePlanet(planet_radius, seed*i*100, orbit_a, orbit_e, -Math.PI/3, 0);
+            } else {
+                planet = new RockyPlanet(planet_radius, seed*i*100, orbit_a, orbit_e, -Math.PI/3, 0);
+            }
             this.planets.push(planet)
             planet.generateMoons(this.rand_fn, scene);
             scene.add( planet.mesh );

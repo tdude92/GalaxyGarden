@@ -1,10 +1,8 @@
 // Import Threejs.
 import * as THREE from 'three'
-import { HabitablePlanet } from '../common/planet/HabitablePlanet';
-import { RockyPlanet } from '../common/planet/RockyPlanet';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SolarSystem } from '../common/SolarSystem';
-import path from 'path';
+import { generateTexture } from '../common/SkyboxTexture';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 45, 100000 );
@@ -17,7 +15,7 @@ document.body.appendChild( renderer.domElement );
 
 //skybox
 const skyboxGeo = new THREE.BoxGeometry(20000, 20000, 20000);
-const material = new THREE.MeshBasicMaterial( { color: 0x000000} );
+const material = new THREE.MeshBasicMaterial({map: generateTexture(10, 2000, 2000)} );
 material.side = THREE.BackSide;
 const skybox = new THREE.Mesh( skyboxGeo, material);
 scene.add( skybox );
@@ -28,17 +26,17 @@ controls.minDistance = 0;
 controls.maxDistance = 100000;
 controls.autoRotate = true;
 controls.autoRotateSpeed = 0.0;
-
+;
 // biscuit
-const ss = new SolarSystem("test", 10000, scene);
+const ss = new SolarSystem("test", Math.round(100000*Math.random()), scene);
 let physics_time:number = 0;
 
 const animate = function () {
     controls.update();
     requestAnimationFrame(animate);
-    physics_time += 0;
+    physics_time += 1500;
     ss.step_orbits(physics_time);
-    skybox.rotation.y += 0.001;
+    skybox.rotation.y += 0.0001;
     renderer.render(scene, camera);
 };
 
@@ -55,7 +53,7 @@ function onWindowResize(){
 //download image
 var strDownloadMime = "image/octet-stream";
 function saveAsImage() {
-    var imgData, imgNode;
+    var imgData;
     try {
         var strMime = "image/jpeg";
         imgData = renderer.domElement.toDataURL(strMime);
@@ -76,7 +74,7 @@ var saveFile = function (strData:string, filename:string) {
         link.click();
         document.body.removeChild(link); //remove the link when done
     } else {
-        location.replace(uri);
+        //location.replace(uri);
     }
 }
 

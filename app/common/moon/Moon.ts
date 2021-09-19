@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { makeNoise3D } from 'open-simplex-noise';
-import { fractalNoise3D_Spherical, mulberry32, random_normal } from '../noise';
+import { fractalNoise3D_Spherical, mulberry32 } from '../noise';
 import { RigidBody } from '../component/RigidBody';
 import { Rendered } from '../component/Rendered';
 
@@ -83,11 +83,6 @@ export class Moon extends RigidBody implements Rendered {
         }
 
         return new THREE.DataTexture(texData, this.tex_w, this.tex_h, THREE.RGBFormat);
-    }
-
-    generatePalette(seed: number): void {
-        let rng = mulberry32(seed);
-        let seaLevel = this.min_elevation + (this.max_elevation - this.min_elevation)*rng()
     }
 
     update(): void {
