@@ -1,24 +1,15 @@
-import * as THREE from 'three'
-import { Rendered } from './component/Rendered';
-import { Luminous } from './component/Luminous';
-import { PointLight } from 'three';
+import * as THREE from 'three';
 import { makeNoise3D } from 'open-simplex-noise';
-import { fractalNoise3D_Spherical } from './noise';
+import { fractalNoise3D_Spherical, mulberry32, random_normal } from '../noise';
+import { RigidBody } from '../component/RigidBody';
+import { Rendered } from '../component/Rendered';
 
-export class Star implements Rendered, Luminous {
-    /** 
-     * Stores information about the solar system’s star.
-     */
-    mesh: THREE.Mesh;
-    radius: number;
-    luminosity: number;
-    color: THREE.Color;
-
-    light: THREE.PointLight;
-    position: THREE.Vector3;
-
+export class Moon extends RigidBody implements Rendered {
     tex_w: number;
     tex_h: number;
+    radius: number;
+    mesh: THREE.Mesh;
+    moons: Moon[];
 
     // Initialized in subclasses
     max_elevation: number = -Infinity;
@@ -29,23 +20,12 @@ export class Star implements Rendered, Luminous {
     palette: Array<THREE.Color> = [];
     height_thresholds: Array<number> = [];
 
-    constructor(radius: number, luminosity: number, color: THREE.Vector3, position: THREE.Vector3, scene: THREE.Scene, seed: number) {
-        color = color.divideScalar(255);
-        this.color = new THREE.Color(color.x, color.y, color.z);
+    constructor(radius: number, seed: number, orbit_a: number, orbit_e: number, x_skew: number, y_skew: number) {
+        super(orbit_a, orbit_e, x_skew, y_skew);
         this.radius = radius;
         this.tex_w = radius*6; // Approximate pi = 3
         this.tex_h = this.tex_w/2;
         this.mesh = this.generateMesh(seed);
-        scene.add( this.mesh );
-
-        this.luminosity = luminosity;
-
-        this.light = new PointLight(this.color, 1, 10000);
-        this.position = position;
-        this.light.position.set(this.position.x, this.position.y, this.position.z);
-        this.mesh.position.set(this.position.x, this.position.y, this.position.z);
-        scene.add( this.light );
-        
     }
 
     generateMesh(seed: number): THREE.Mesh {
@@ -53,12 +33,18 @@ export class Star implements Rendered, Luminous {
         this.tex = this.generateTexture(seed);
         
         const geometry = new THREE.SphereGeometry(this.radius); // TODO params
-        const material = new THREE.MeshBasicMaterial({
+        const material = new THREE.MeshStandardMaterial({
             map: this.tex
             //normalMap: this.normalMap
         });
 
         return new THREE.Mesh(geometry, material);
+    }
+
+    step(new_time:number): void { // override
+        this.position = this.orbit.get_2d_coords(new_time)
+        .applyMatrix4(this.solar_x_skew)
+        .applyMatrix4(this.solar_y_skew);
     }
 
     generateElevations(seed: number): Float64Array {
@@ -71,7 +57,7 @@ export class Star implements Rendered, Luminous {
             let r_cylinder = r_sphere*Math.cos(Math.PI/2 - theta);
             for (let x = 0.5; x < this.tex_w; ++x) {
                 let phi = x*2*Math.PI/this.tex_w;
-                let noiseOut = fractalNoise3D_Spherical(theta, phi, r_cylinder, 0.005*this.tex_w/100, noise, 4, 2, 0.4);
+                let noiseOut = fractalNoise3D_Spherical(theta, phi, r_cylinder, 0.015*this.tex_w/100, noise, 4, 2, 0.4);
 
                 elevations[(y - 0.5)*this.tex_w + (x - 0.5)] = noiseOut;
 
@@ -91,13 +77,21 @@ export class Star implements Rendered, Luminous {
                 let elevation = this.elevations[y*this.tex_w + x];
 
                 texData[3*y*this.tex_w + 3*x + 0] = Math.floor(elevation*255); // TODO add colours
-                texData[3*y*this.tex_w + 3*x + 1] = Math.floor(elevation*160);
-                texData[3*y*this.tex_w + 3*x + 2] = Math.floor(elevation*120);
+                texData[3*y*this.tex_w + 3*x + 1] = Math.floor(elevation*255);
+                texData[3*y*this.tex_w + 3*x + 2] = Math.floor(elevation*255);
             }
         }
 
         return new THREE.DataTexture(texData, this.tex_w, this.tex_h, THREE.RGBFormat);
     }
 
-    update() {} // TODO
+    generatePalette(seed: number): void {
+        let rng = mulberry32(seed);
+        let seaLevel = this.min_elevation + (this.max_elevation - this.min_elevation)*rng()
+    }
+
+    update(): void {
+        // TODO planet draw functions
+        this.mesh.position.set(this.position.x, this.position.y, this.position.z);
+    }
 }
