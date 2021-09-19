@@ -3,13 +3,17 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SolarSystem } from '../common/SolarSystem';
 import { generateTexture } from '../common/SkyboxTexture';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 45, 100000 );
 camera.position.set(0, 0, 8000);
 
 const renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
-renderer.setPixelRatio(window.devicePixelRatio/3);
+renderer.setPixelRatio(window.devicePixelRatio/2);
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
@@ -43,14 +47,26 @@ function generateSystem() {
 let physics_time:number = 0;
 
 
+const renderScene = new RenderPass( scene, camera );
+
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+bloomPass.threshold = 0.3;
+bloomPass.strength = 1;
+bloomPass.radius = 0;
+
+var composer = new EffectComposer( renderer );
+composer.addPass( renderScene );
+composer.addPass( bloomPass );
+
 
 const animate = function () {
     controls.update();
     requestAnimationFrame(animate);
     physics_time += 1500;
     ss.step_orbits(physics_time);
-    skybox.rotation.y += 0.0001;
-    renderer.render(scene, camera);
+    skybox.rotation.y += 0.00001;
+    composer.render();
+    //renderer.render(scene, camera);
 };
 animate();
 
