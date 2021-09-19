@@ -8,8 +8,8 @@ import { RockyPlanet } from './planet/RockyPlanet';
 import { Planet } from './planet/Planet';
 import { Star } from './Star';
 
-const MAX_PLANETS:number = 6;
-const SOLAR_SYSTEM_RADIUS:number = 8000;
+const MAX_PLANETS:number = 10;
+const SOLAR_SYSTEM_RADIUS:number = 10000;
 const ORBIT_RADIUS_DEVIATION:number = 60;
 const TYPICAL_PLANET_RADIUS:number = 100;
 const SUN_RADIUS:number = 300;
