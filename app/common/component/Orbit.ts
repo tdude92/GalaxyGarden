@@ -33,6 +33,8 @@ export class Orbit {
 
     get_2d_coords(t:number) : THREE.Vector3 {
         this.orbit_E = Orbit.solve_E(t, this.orbit_a, 0.01, this.orbit_e);
+        //console.log(this.orbit_a*Math.cos(this.orbit_E));
+        //console.log(this.orbit_b*Math.sin(this.orbit_E));
         return new THREE.Vector3(
             this.orbit_a*Math.cos(this.orbit_E),
             this.orbit_b*Math.sin(this.orbit_E),

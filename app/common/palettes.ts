@@ -28,6 +28,7 @@ export class Palette {
                 this.colors.push({h: [130, 20], s: [20, 20], l: [25, 20]}); // Lowlands
                 this.colors.push({h: [165, 20], s: [20, 20], l: [20, 20]}); // Midlands
                 this.colors.push({h: [200, 20], s: [15, 20], l: [10, 20]}); // Highlands
+                break;
             case PaletteType.Complementary:
                 break;
             case PaletteType.SplitComplementary:

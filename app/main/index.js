@@ -1,6 +1,5 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
-
 // get environment type
 const isDevelopment = process.env.NODE_ENV !== 'production';
 

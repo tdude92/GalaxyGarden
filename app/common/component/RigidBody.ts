@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Orbit } from '../component/Orbit'
+import { Orbit } from './Orbit'
 
 export abstract class RigidBody {
     /** 

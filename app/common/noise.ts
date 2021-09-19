@@ -52,3 +52,8 @@ export function random_normal(rand_fn:() => number) : number {
     let x:number = Math.abs(random_normal(rand_fn))/4.;
     return x < 0.9 ? x : 0;
   }
+
+  export function random_moon_e(rand_fn:() => number) : number {
+    let x:number = Math.abs(random_normal(rand_fn))/1.5;
+    return x < 0.9 ? x : 0;
+  }
