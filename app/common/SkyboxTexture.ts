@@ -10,11 +10,22 @@ function flood_fill(arr: Uint8Array, rD: number, lI: number, x: number, y: numbe
     }
 
     rD--;
-    lI *= 0.995;
+    lI *= 0.997;
 
-    arr[3*y*tex_w + 3*x + 0] = Math.floor(255*lI);
-    arr[3*y*tex_w + 3*x + 1] = Math.floor(255*lI);
-    arr[3*y*tex_w + 3*x + 2] = Math.floor(255*lI);
+    let cols: Array<THREE.Color> = [
+        new THREE.Color(255, 255, 255),
+        new THREE.Color(255, 238, 143),
+        new THREE.Color(252, 252, 212),
+        new THREE.Color(247, 171, 49),
+        new THREE.Color(166, 234, 255),
+        new THREE.Color(189, 47, 11),
+        new THREE.Color(92, 131, 237)
+    ];
+    let col = cols[Math.floor(Math.random()*cols.length)];
+
+    arr[3*y*tex_w + 3*x + 0] = col.r*lI;
+    arr[3*y*tex_w + 3*x + 1] = col.g*lI;
+    arr[3*y*tex_w + 3*x + 2] = col.b*lI;
 
     if (x > 0) {
         flood_fill(arr, rD, lI, x-1, y, tex_w, tex_h);
