@@ -18,9 +18,7 @@ export abstract class RigidBody {
     // Orbit
     orbit: Orbit;
 
-    constructor() {}
-
-    _init_physics(orbit_a:number, orbit_e:number, x_skew:number, y_skew:number) : void {
+    constructor(orbit_a:number, orbit_e:number, x_skew:number, y_skew:number) {
         this.solar_x_skew = new THREE.Matrix4().makeRotationX(x_skew);
         this.solar_y_skew = new THREE.Matrix4().makeRotationY(y_skew);
         this.orbit = new Orbit(orbit_a, orbit_e);

@@ -1,6 +1,6 @@
 // Import Threejs.
 import * as THREE from 'three'
-import { HabitablePlanet } from 'common/planet/HabitablePlanet';
+import { HabitablePlanet } from '../common/planet/HabitablePlanet';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );

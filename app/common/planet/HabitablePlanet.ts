@@ -5,8 +5,8 @@ import { fractalNoise3D_Spherical } from '../noise';
 import { Planet } from './Planet';
 
 export class HabitablePlanet extends Planet {
-    constructor(radius: number, seed: number) {
-        super(radius, seed);
+    constructor(radius: number, seed: number, orbit_a: number, orbit_e: number, x_skew: number, y_skew: number) {
+        super(radius, seed, orbit_a, orbit_e, x_skew, y_skew);
     }
 
     generateElevations(seed: number): Float64Array {

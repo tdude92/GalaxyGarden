@@ -3,8 +3,8 @@ import * as THREE from 'three';
 import { Planet } from './Planet';
 
 export class RockyPlanet extends Planet {
-    constructor(radius: number, seed: number) {
-        super(radius, seed);
+    constructor(radius: number, seed: number, orbit_a: number, orbit_e: number, x_skew: number, y_skew: number) {
+        super(radius, seed, orbit_a, orbit_e, x_skew, y_skew);
     }
 
     generateElevations(seed: number): Float64Array {

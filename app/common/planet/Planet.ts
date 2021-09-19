@@ -18,8 +18,8 @@ export abstract class Planet extends RigidBody implements Rendered {
     tex: THREE.Texture;
     mesh: THREE.Mesh;
 
-    constructor(radius: number, seed: number) {
-        super();
+    constructor(radius: number, seed: number, orbit_a: number, orbit_e: number, x_skew: number, y_skew: number) {
+        super(orbit_a, orbit_e, x_skew, y_skew);
         this.radius = radius;
         this.tex_w = radius*6; // Approximate pi = 3
         this.tex_h = this.tex_w/2;
