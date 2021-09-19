@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { Rendered } from './component/Rendered';
 import { RigidBody } from './component/RigidBody';
 import { Luminous } from './component/Luminous';
-import { genHexstring } from './utils';
 import { random_normal, mulberry32, random_e } from './noise';
 import { HabitablePlanet } from './planet/HabitablePlanet';
 
@@ -32,9 +31,8 @@ export class SolarSystem {
 
     rand_fn: () => number;
 
-    constructor(name: string, id: string, seed: number) {
+    constructor(name: string, seed: number) {
         this.name = name;
-        this.id = id;
         this.seed = seed;
         // TODO Generate celestial bodies
         this.rand_fn = mulberry32(seed);
@@ -61,10 +59,6 @@ export class SolarSystem {
         // TODO Generate Sun
         // TODO Generate skybox
     }
-
-    // Reading/Writing solar systems from disk (probably just store the seed)
-    static load(path: string): SolarSystem {return new SolarSystem(genHexstring(4), genHexstring(4), -1)} // TODO load from file
-    save(path: string): void {} // TODO save to file
 
     update(): void {} // TODO draw function
 }

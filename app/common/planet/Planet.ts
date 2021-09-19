@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { Rendered } from '../component/Rendered';
 import { RigidBody } from '../component/RigidBody';
+import { Palette } from '../palettes';
 
 export abstract class Planet extends RigidBody implements Rendered {
     /** 
@@ -14,13 +15,11 @@ export abstract class Planet extends RigidBody implements Rendered {
     mesh: THREE.Mesh;
 
     // Initialized in subclasses
-    max_elevation: number = -Infinity;
-    min_elevation: number = Infinity;
     elevations: Float64Array;
     normalMap: THREE.Texture; // TODO generate
     tex: THREE.Texture;
-    palette: Array<THREE.Color> = [];
-    height_thresholds: Array<number> = [];
+    palette: Palette;
+    height_thresholds: Array<number>;
 
     constructor(radius: number, seed: number, orbit_a: number, orbit_e: number, x_skew: number, y_skew: number) {
         super(orbit_a, orbit_e, x_skew, y_skew);
@@ -32,6 +31,7 @@ export abstract class Planet extends RigidBody implements Rendered {
 
     generateMesh(seed: number): THREE.Mesh {
         this.elevations = this.generateElevations(seed);
+        this.generatePalette(seed);
         this.tex = this.generateTexture(seed);
         
         const geometry = new THREE.SphereGeometry(this.radius); // TODO params
