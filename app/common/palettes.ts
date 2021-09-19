@@ -50,12 +50,3 @@ export class Palette {
         }
     }
 }
-
-function shiftHue(hue: number, dist: number = 15): number {
-    hue = hue % 360
-    if (240 - dist <= hue && hue <= 240 + dist)
-      return 240;
-    if (60 < hue && hue < 225)
-      return hue + dist;
-    return (hue - dist) % 360;
-  }
