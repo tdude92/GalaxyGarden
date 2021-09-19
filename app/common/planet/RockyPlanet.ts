@@ -17,6 +17,8 @@ export class RockyPlanet extends Planet {
         return new THREE.Texture();
     }
 
+    generatePalette(seed: number): void {} // TODO
+
     update(): void {
         // TODO planet draw functions
     }

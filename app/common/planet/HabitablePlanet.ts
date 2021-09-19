@@ -1,7 +1,7 @@
 // TODO HabitablePlanet
 import * as THREE from 'three';
 import { makeNoise3D } from 'open-simplex-noise';
-import { fractalNoise3D_Spherical } from '../noise';
+import { fractalNoise3D_Spherical, mulberry32 } from '../noise';
 import { Planet } from './Planet';
 
 export class HabitablePlanet extends Planet {
@@ -19,8 +19,12 @@ export class HabitablePlanet extends Planet {
             let r_cylinder = r_sphere*Math.cos(Math.PI/2 - theta);
             for (let x = 0.5; x < this.tex_w; ++x) {
                 let phi = x*2*Math.PI/this.tex_w;
-                let noiseOut = fractalNoise3D_Spherical(theta, phi, r_cylinder, 0.1*this.tex_w/100, noise, 4, 2, 0.4);
+                let noiseOut = fractalNoise3D_Spherical(theta, phi, r_cylinder, 0.015*this.tex_w/100, noise, 4, 2, 0.4);
+
                 elevations[(y - 0.5)*this.tex_w + (x - 0.5)] = noiseOut;
+
+                this.min_elevation = Math.min(this.min_elevation, noiseOut);
+                this.max_elevation = Math.max(this.max_elevation, noiseOut);
             }
         }
         return elevations;
@@ -34,13 +38,18 @@ export class HabitablePlanet extends Planet {
             for (let x = 0; x < this.tex_w; ++x) {
                 let elevation = this.elevations[y*this.tex_w + x];
 
-                texData[y*this.tex_w + x + 0] = Math.floor(elevation*255); // TODO add colours
-                texData[y*this.tex_w + x + 1] = Math.floor(elevation*255);
-                texData[y*this.tex_w + x + 2] = Math.floor(elevation*255);
+                texData[3*y*this.tex_w + 3*x + 0] = Math.floor(elevation*255); // TODO add colours
+                texData[3*y*this.tex_w + 3*x + 1] = Math.floor(elevation*255);
+                texData[3*y*this.tex_w + 3*x + 2] = Math.floor(elevation*255);
             }
         }
 
         return new THREE.DataTexture(texData, this.tex_w, this.tex_h, THREE.RGBFormat);
+    }
+
+    generatePalette(seed: number): void {
+        let rng = mulberry32(seed);
+        let seaLevel = this.min_elevation + (this.max_elevation - this.min_elevation)*rng()
     }
 
     update(): void {

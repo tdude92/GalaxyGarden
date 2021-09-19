@@ -11,12 +11,16 @@ export abstract class Planet extends RigidBody implements Rendered {
     tex_w: number;
     tex_h: number;
     radius: number;
+    mesh: THREE.Mesh;
 
     // Initialized in subclasses
+    max_elevation: number = -Infinity;
+    min_elevation: number = Infinity;
     elevations: Float64Array;
     normalMap: THREE.Texture; // TODO generate
     tex: THREE.Texture;
-    mesh: THREE.Mesh;
+    palette: Array<THREE.Color> = [];
+    height_thresholds: Array<number> = [];
 
     constructor(radius: number, seed: number, orbit_a: number, orbit_e: number, x_skew: number, y_skew: number) {
         super(orbit_a, orbit_e, x_skew, y_skew);
@@ -41,5 +45,6 @@ export abstract class Planet extends RigidBody implements Rendered {
 
     abstract generateElevations(seed: number): Float64Array;
     abstract generateTexture(seed: number): THREE.Texture;
+    abstract generatePalette(seed: number): void;
     abstract update(): void; // TODO
 }

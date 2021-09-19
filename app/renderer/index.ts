@@ -17,7 +17,7 @@ camera.position.z = 500;
 const animate = function () {
     requestAnimationFrame( animate );
 
-    planet.mesh.rotation.x += 0.01;
+    planet.mesh.rotation.y += 0.01;
 
     renderer.render( scene, camera );
 };
