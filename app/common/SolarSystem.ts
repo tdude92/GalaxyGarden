@@ -16,12 +16,12 @@ export class SolarSystem {
     drawn_objects: Rendered[];
     luminous_objects: Luminous[];
 
-    skybox_up:    THREE.Vector3[][]; // Skybox stored as 2d arrays of 3d vectors (ie. an RGB image)
-    skybox_down:  THREE.Vector3[][];
-    skybox_left:  THREE.Vector3[][];
-    skybox_right: THREE.Vector3[][];
-    skybox_front: THREE.Vector3[][];
-    skybox_back:  THREE.Vector3[][];
+    skybox_up:    THREE.Texture; // Skybox stored as 2d arrays of 3d vectors (ie. an RGB image)
+    skybox_down:  THREE.Texture;
+    skybox_left:  THREE.Texture;
+    skybox_right: THREE.Texture;
+    skybox_front: THREE.Texture;
+    skybox_back:  THREE.Texture;
 
     constructor(name: string, id: string, seed: number) {
         this.name = name;
