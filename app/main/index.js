@@ -11,6 +11,7 @@ const openWindow = () => {
         webPreferences: {
             nodeIntegration: true,
         },
+        icon: __dirname + './unknown.ico',
     } );
 
     // load HTML file
