@@ -12,8 +12,8 @@ export class Star extends RigidBody implements Rendered, Luminous {
     luminosity: number;
     color: THREE.Color;
 
-    constructor(radius: number, luminosity: number, color: THREE.Vector3) {
-        super();
+    constructor(radius: number, luminosity: number, color: THREE.Vector3, orbit_a: number, orbit_e: number, x_skew: number, y_skew: number) {
+        super(orbit_a, orbit_e, x_skew, y_skew);
         this.radius = radius;
         this.luminosity = luminosity;
 

@@ -9,15 +9,15 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const planet = new HabitablePlanet()
+const planet = new HabitablePlanet(100, 0,0,0,0,0);
 scene.add( planet.mesh );
 
-camera.position.z = 5;
+camera.position.z = 500;
 
 const animate = function () {
     requestAnimationFrame( animate );
 
-    planet.rotation.x += 0.01;
+    planet.mesh.rotation.x += 0.01;
 
     renderer.render( scene, camera );
 };

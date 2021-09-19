@@ -27,14 +27,14 @@ export abstract class Planet extends RigidBody implements Rendered {
     }
 
     generateMesh(seed: number): THREE.Mesh {
-        const geometry = new THREE.SphereGeometry(); // TODO params
-        const material = new THREE.MeshStandardMaterial({
+        this.elevations = this.generateElevations(seed);
+        this.tex = this.generateTexture(seed);
+        
+        const geometry = new THREE.SphereGeometry(this.radius); // TODO params
+        const material = new THREE.MeshBasicMaterial({
             map: this.tex
             //normalMap: this.normalMap
         });
-
-        this.elevations = this.generateElevations(seed);
-        this.tex = this.generateTexture(seed);
 
         return new THREE.Mesh(geometry, material);
     }
