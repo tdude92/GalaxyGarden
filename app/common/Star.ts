@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { Rendered } from './component/Rendered';
 import { Luminous } from './component/Luminous';
-import { PointLight } from 'three';
+import { AmbientLight, PointLight } from 'three';
 import { makeNoise3D } from 'open-simplex-noise';
 import { fractalNoise3D_Spherical } from './noise';
 
@@ -19,6 +19,8 @@ export class Star implements Rendered, Luminous {
 
     tex_w: number;
     tex_h: number;
+
+    coronaMesh: THREE.Mesh;
 
     // Initialized in subclasses
     max_elevation: number = -Infinity;
@@ -46,6 +48,12 @@ export class Star implements Rendered, Luminous {
         this.mesh.position.set(this.position.x, this.position.y, this.position.z);
         scene.add( this.light );
         
+        let coronaData = new Uint8Array(1);
+        coronaData[0] = 0.01;
+        this.coronaMesh = new THREE.Mesh(new THREE.SphereGeometry(this.radius*1.3), new THREE.MeshBasicMaterial({color: 0xffdc7a, alphaMap: new THREE.DataTexture(coronaData, 1, 1)}))
+        scene.add(this.coronaMesh);
+
+        scene.add(new AmbientLight(0xddddff, 0.2));
     }
 
     update() {} // TODO
