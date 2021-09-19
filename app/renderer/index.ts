@@ -6,7 +6,7 @@ import { generateTexture } from '../common/SkyboxTexture';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 45, 100000 );
-camera.position.set(0, 0, 6000);
+camera.position.set(0, 0, 8000);
 
 const renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 renderer.setPixelRatio(window.devicePixelRatio/3);

@@ -8,10 +8,11 @@ import { RockyPlanet } from './planet/RockyPlanet';
 import { Planet } from './planet/Planet';
 import { Star } from './Star';
 
-const MAX_PLANETS:number = 6;
-const SOLAR_SYSTEM_RADIUS:number = 8000;
+const MAX_PLANETS:number = 10;
+const SOLAR_SYSTEM_RADIUS:number = 10000;
 const ORBIT_RADIUS_DEVIATION:number = 60;
 const TYPICAL_PLANET_RADIUS:number = 100;
+const SUN_RADIUS:number = 300;
 
 export class SolarSystem {
     /**
@@ -46,24 +47,28 @@ export class SolarSystem {
         var orbit_a:number, orbit_e:number, planet_radius:number;
         this.planets = [];
 
+        let prev_radius:number = SUN_RADIUS;
+
         for (var i = 0; i < num_planets; i++) {
             planet_radius = Math.round(Math.abs(random_normal(this.rand_fn)/4+1)*TYPICAL_PLANET_RADIUS + (this.rand_fn()-0.25)*200);
 
             while (true) {
                 orbit_a = SOLAR_SYSTEM_RADIUS / 2. / num_planets * (i+1.) +
-                          (this.rand_fn() - 0.5) * ORBIT_RADIUS_DEVIATION;
+                          (this.rand_fn() - 0.5) * ORBIT_RADIUS_DEVIATION +
+                          SUN_RADIUS;
                 orbit_e = random_e(this.rand_fn);
-                if (orbit_a*(1-orbit_e) > prev_apoapsis+planet_radius) {
+                if (orbit_a*(1-orbit_e) > prev_apoapsis+planet_radius+prev_radius) {
                     break;
                 }
             }
 
             prev_apoapsis = orbit_a*(1+orbit_e);
+            prev_radius = planet_radius;
             let planet:Planet;
             if (this.rand_fn() > 0.75) {
-                planet = new HabitablePlanet(planet_radius, seed*i*100, orbit_a, orbit_e, -Math.PI/3, 0);
+                planet = new HabitablePlanet(planet_radius, seed*i*100, orbit_a, orbit_e, -Math.PI/3 + (this.rand_fn()-0.5)*Math.PI/6, 0);
             } else {
-                planet = new RockyPlanet(planet_radius, seed*i*100, orbit_a, orbit_e, -Math.PI/3, 0);
+                planet = new RockyPlanet(planet_radius, seed*i*100, orbit_a, orbit_e, -Math.PI/3 + (this.rand_fn()-0.5)*Math.PI/6, 0);
             }
             this.planets.push(planet)
             planet.generateMoons(this.rand_fn, scene);
@@ -71,7 +76,7 @@ export class SolarSystem {
         }
 
         // TODO Generate Sun
-        this.star = new Star(300, 100, new THREE.Vector3(255, 220, 180), new THREE.Vector3(0,0,0), scene, seed*100);
+        this.star = new Star(SUN_RADIUS, 100, new THREE.Vector3(255, 220, 180), new THREE.Vector3(0,0,0), scene, seed*100);
         // TODO Generate skybox
     }
 
